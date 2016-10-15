@@ -1,0 +1,65 @@
+---
+title: "Mutilple Linear Regression Analysis"
+output: pdf_document
+---
+Abstract
+
+In this document, we will reproduce the main results of section 3.2 Multiple Linear Regression of the book An Introduction to Statistical Learning. Linear regression is a very straightforward and useful method for predicting a quantitative response Y on the basis of predictor variables X1 to Xn. Linear regression would assume a linear realtionship between X and Y, and has two parameters: slope and intercept. In this case, we will predict a response variable Sales from the three predictor variables TV, Radio and Newspaper and visualize the result in scatter plots.
+
+Introduction
+
+The main goal of this analysis is to find  a way to improve sales of the particular product. In detail, we are trying to find if there is a linear relationship between sales and the other three variables (TV,Radio,Newspaper) and use the linear model to predict sales based on TV,Radio,Newspaper. From the model, we can analyze which one of the three factors contribute most to sales, and hence improve our sale records accordingly. 
+
+Data
+
+In this analysis, we use the dataset of Advertising data in the book An Introduction to Statistical Learning. The dataset consists of four variables including three predictors (TV, Radio, Newspaper) and one response variable (Sales). The dimension of the dataset is 200*4, which means it consists the sales of a particular product in 200 different markets.
+
+Methodology
+
+One way to predict sales based on three predictors is to fit separate linear regression model for each predictor, and the other way is to extend the linear model so that it can directly accommodate multiple predictors. For a one predictor case, we can just use a simple linear regression with Sales = Beta-0 + Beta-1*TV where Beta-0 is the intercept and Beta-1 is the slope of the regreession line, and replace TV with the other two predictors to get different results. For a multiple linear regression, we need more coefficients to represent the data properly.We can formulate a linear regression via the least square criterion which is the same criterion in the simple linear regression. 
+
+Results
+
+We first compute the coefficients of the regression line to visualize how one unit of TV or Radio or Newspaper contribute to the sale
+
+Table 1: Information about regression coefficients
+```{r}
+load("regression.RData")
+reg_all$coeff
+reg_news$coeff
+reg_radio$coeff
+reg_tv$coeff
+```
+
+Furthermore, we can also get more details of regression model by calculating the correlation matrix for TV, radio, newspaper and sales for Advertising data.
+
+Table 2: Correlation Matrix
+```{r}
+load("correlation-matrix.RData")
+correlation_matrix
+```
+
+we will also visualize the scatter plots of predictors and response variable
+
+![](/Users/Simon/Desktop/stat159_hw3/images/scatterplot-tv-sales.png)
+
+![](/Users/Simon/Desktop/stat159_hw3/images/scatterplot-radio-sales.png)
+
+![](/Users/Simon/Desktop/stat159_hw3/images/scatterplot-newspaper-sales.png)
+
+
+Finally we will visualize the Quantiile-Quantile plot and residual plot of the data
+
+![](/Users/Simon/Desktop/stat159_hw3/images/normal-qq-plot.png)
+
+![](/Users/Simon/Desktop/stat159_hw3/images/residual-plot.png)
+
+
+
+Conclusion
+
+In this analysis, we analyzed the relationship between the predictor variables TV, Radio and Newspaper and the response variable Sales and fit a linear regression to predict the response variable Sales from these three predictors. Then we compute statistics to study the regression line and visualize the regression line with the scatter plot to provide a visual understanding of the dataset. 
+
+The p values indicate that TV and Radio are related to Sales, but there is no evidence that newspaper is associated with sales given presence of these two. The task of determining which predictors are associated with the response, in order to fit a single model involving only those predictors, is referred to as variable selection, and in this case two predictors (TV and Radio) are useful.
+
+Two most common numerical measures of model fit are the RSE and R2, the fraction of variance explained.For the Advertising data, the model that uses all three advertising me- dia to predict sales has an R2 of 0.8972. On the other hand, the model that uses only TV and radio to predict sales has an R2 value of 0.89719, which means that Newspaper is not important for sales. 
