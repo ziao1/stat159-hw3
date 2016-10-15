@@ -14,7 +14,7 @@ r_squared = function(x){
 }
 
 f_statistic = function(x){
-  f = ((total_sum_squares(x)-residual_sum_squares(x))/(length(x$coefficient)-1)) / (RSS/(length(x$residuals) - length(x$coefficient)))
+  f = ((total_sum_squares(x)-residual_sum_squares(x))/(length(x$coefficient)-1)) / (residual_sum_squares(x)/(length(x$residuals) - length(x$coefficient)))
   return(f)
 }
 
